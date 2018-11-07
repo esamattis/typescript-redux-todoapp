@@ -12,8 +12,19 @@ export const createTodoConnect = makeComponentCreator({
     prepareActions: dispatch => bindActionCreators(ActionCreators, dispatch),
 });
 
-export function createTodoStore() {
-    const reducer = createReducerFunction(TodoReducer, initialState);
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION__?: Function;
+    }
+}
 
-    return createStore(reducer);
+export function createTodoStore() {
+    const reducer = createReducerFunction(TodoReducer);
+
+    return createStore(
+        reducer,
+        initialState,
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
+            window.__REDUX_DEVTOOLS_EXTENSION__(),
+    );
 }
