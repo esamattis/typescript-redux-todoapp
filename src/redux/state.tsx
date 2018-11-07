@@ -1,4 +1,5 @@
 export interface TodoItem {
+    id: string;
     text: string;
     completed: boolean;
 }
@@ -21,16 +22,20 @@ export class Selectors {
     getTodoIDs() {
         return this.state.todos
             .filter(todo => !todo.completed)
-            .map((todo, index) => String(index));
+            .map(todo => todo.id);
     }
 
     getComletedIDs() {
         return this.state.todos
             .filter(todo => todo.completed)
-            .map((todo, index) => String(index));
+            .map(todo => todo.id);
     }
 
     getTodo(id: string) {
-        return this.state.todos[Number(id)];
+        const maybeTodo = this.state.todos.find(todo => todo.id === id);
+        if (!maybeTodo) {
+            throw new Error("Cannot find todo with id: " + id);
+        }
+        return maybeTodo;
     }
 }

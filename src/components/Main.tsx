@@ -21,9 +21,9 @@ const Main = () => (
         <TodoListConnect>
             {(data, actions) => (
                 <>
-                    <section>
+                    <div style={{padding: 10}}>
                         <button onClick={actions.addTodo}>Add todo</button>
-                    </section>
+                    </div>
                     {data.todos.map(id => (
                         <TodoItem key={id} id={id} />
                     ))}

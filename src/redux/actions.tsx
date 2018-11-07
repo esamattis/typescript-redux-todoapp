@@ -6,7 +6,11 @@ export class TodoReducer extends ImmerReducer<State> {
     selectors = new Selectors(this.draftState);
 
     addTodo() {
-        this.draftState.todos.push({text: "", completed: false});
+        this.draftState.todos.push({
+            id: String(Date.now()),
+            text: "",
+            completed: false,
+        });
     }
 
     completeTodo(id: string) {
