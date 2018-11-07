@@ -4,26 +4,33 @@ import {createTodoConnect} from "../redux/store";
 
 import TodoItem from "./TodoItem";
 
-const TodoListConnect = createTodoConnect({
-    mapState: selectors => ({
-        todos: selectors.getTodoIDs(),
-        completed: selectors.getComletedIDs(),
-    }),
-
+const AddTodoConnect = createTodoConnect({
     mapActions: actions => ({
         addTodo: actions.addTodo,
     }),
 });
 
+const TodoListConnect = createTodoConnect({
+    mapState: selectors => ({
+        todos: selectors.getTodoIDs(),
+        completed: selectors.getComletedIDs(),
+    }),
+});
+
 const Main = () => (
     <div>
-        <h1>TODOs</h1>
+        <AddTodoConnect>
+            {(_, actions) => (
+                <div style={{padding: 10}}>
+                    <button onClick={actions.addTodo}>Add todo</button>
+                </div>
+            )}
+        </AddTodoConnect>
+
         <TodoListConnect>
-            {(data, actions) => (
+            {data => (
                 <>
-                    <div style={{padding: 10}}>
-                        <button onClick={actions.addTodo}>Add todo</button>
-                    </div>
+                    <h1>TODOs</h1>
                     {data.todos.map(id => (
                         <TodoItem key={id} id={id} />
                     ))}
