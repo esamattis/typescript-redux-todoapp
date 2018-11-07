@@ -2,7 +2,9 @@ import React from "react";
 
 import {createTodoConnect} from "../redux/store";
 
-const Foo = createTodoConnect({
+import TodoItem from "./TodoItem";
+
+const TodoListConnect = createTodoConnect({
     mapState: selectors => ({
         todos: selectors.getTodoIDs(),
         completed: selectors.getComletedIDs(),
@@ -16,16 +18,23 @@ const Foo = createTodoConnect({
 const Main = () => (
     <div>
         <h1>TODOs</h1>
-        <Foo>
+        <TodoListConnect>
             {(data, actions) => (
                 <>
-                    <button onClick={actions.addTodo}>Add todo</button>
-                    <pre>{JSON.stringify(data)}</pre>
+                    <section>
+                        <button onClick={actions.addTodo}>Add todo</button>
+                    </section>
+                    {data.todos.map(id => (
+                        <TodoItem key={id} id={id} />
+                    ))}
+
+                    <h1>Completed</h1>
+                    {data.completed.map(id => (
+                        <TodoItem key={id} id={id} />
+                    ))}
                 </>
             )}
-        </Foo>
-
-        <h1>Completed</h1>
+        </TodoListConnect>
     </div>
 );
 

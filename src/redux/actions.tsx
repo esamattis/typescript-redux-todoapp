@@ -18,4 +18,9 @@ export class TodoReducer extends ImmerReducer<State> {
         const todo = this.selectors.getTodo(id);
         todo.completed = false;
     }
+
+    setTodoText(id: string, text: string) {
+        const todo = this.selectors.getTodo(id);
+        todo.text = text;
+    }
 }
