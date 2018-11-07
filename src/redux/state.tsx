@@ -1,5 +1,5 @@
 export interface TodoItem {
-    readtext: string;
+    text: string;
     completed: boolean;
 }
 
@@ -19,7 +19,15 @@ export class Selectors {
     }
 
     getTodoIDs() {
-        return this.state.todos.map((todo, index) => String(index));
+        return this.state.todos
+            .filter(todo => !todo.completed)
+            .map((todo, index) => String(index));
+    }
+
+    getComletedIDs() {
+        return this.state.todos
+            .filter(todo => todo.completed)
+            .map((todo, index) => String(index));
     }
 
     getTodo(id: string) {

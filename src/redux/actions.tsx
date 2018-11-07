@@ -1,11 +1,12 @@
 import {ImmerReducer} from "immer-reducer";
-import {State, TodoItem, Selectors} from "./state";
+
+import {Selectors, State, TodoItem} from "./state";
 
 export class TodoReducer extends ImmerReducer<State> {
     selectors = new Selectors(this.draftState);
 
-    addTodo(todo: TodoItem) {
-        this.draftState.todos.push(todo);
+    addTodo() {
+        this.draftState.todos.push({text: "", completed: false});
     }
 
     completeTodo(id: string) {
