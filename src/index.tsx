@@ -1,8 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {Provider} from "react-redux";
 
-const App = () => <div>root</div>;
+import Main from "./components/Main";
+import {createTodoStore} from "./redux/store";
+
+const store = createTodoStore();
+
+function Root() {
+    return (
+        <Provider store={store}>
+            <Main />
+        </Provider>
+    );
+}
 
 const el = document.getElementById("root");
 
-ReactDOM.render(<App />, el);
+ReactDOM.render(<Root />, el);
