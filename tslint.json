@@ -1,0 +1,11 @@
+{
+    "rules": {
+        "no-shadowed-variable": true,
+        "ordered-imports": [
+            true,
+            {
+                "grouped-imports": true
+            }
+        ]
+    }
+}
