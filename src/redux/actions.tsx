@@ -7,6 +7,9 @@ export class TodoReducer extends ImmerReducer<State> {
 
     addTodo() {
         this.draftState.todos.push({
+            // Generating id like this is an side effect and should not be made
+            // in side a reducer. Better place for it would be in a thunk for
+            // example.
             id: String(Date.now()),
             text: "",
             completed: false,
