@@ -14,8 +14,8 @@ export const initialState = {
 
 /**
  * Some state selection helpers. Using helper like makes it easier to refactor
- * the the structure when required. This selector helper can be used in both
- * the render prop connect and the Immer Reducer.
+ * the the state structure when required. This selector helper can be used in
+ * both the render prop connect and the Immer Reducer.
  */
 export class Selectors {
     state: State;
