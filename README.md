@@ -1,4 +1,10 @@
-# Typescript Redux Example Todo App
+# Example of Type-safe Boilerplate-free Redux
+
+Read this blog post
+
+https://medium.com/@esamatti/type-safe-boilerplate-free-redux-906844ec6325
+
+------------
 
 Todo App example made with [Immer
 Reducer](https://github.com/epeli/immer-reducer) and [Redux Render
