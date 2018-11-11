@@ -1,6 +1,6 @@
 # Typescript Redux Example Todo App
 
-Todo App example make with [Immer
+Todo App example made with [Immer
 Reducer](https://github.com/epeli/immer-reducer) and [Redux Render
 Prop](https://github.com/epeli/redux-render-prop)
 
