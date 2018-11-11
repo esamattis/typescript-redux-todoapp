@@ -2,7 +2,7 @@
 
 Todo App example make with [Immer
 Reducer](https://github.com/epeli/immer-reducer) and [Redux Render
-Prop](https://github.com/epeli/immer-reducer)
+Prop](https://github.com/epeli/redux-render-prop)
 
 This is also live in Codesandbox
 
