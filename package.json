@@ -3,17 +3,18 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@types/react": "^16.7.4",
-        "@types/react-dom": "^16.0.9",
-        "@types/react-redux": "^6.0.9",
-        "immer-reducer": "^0.1.4",
+        "@types/node": "^10.12.11",
+        "@types/react": "^16.7.11",
+        "@types/react-dom": "^16.0.11",
+        "@types/react-redux": "^6.0.10",
+        "immer-reducer": "^0.2.0",
         "react": "^16.6.3",
         "react-dom": "^16.6.3",
         "react-redux": "^5.1.1",
         "react-scripts": "2.1.1",
         "redux": "^4.0.1",
         "redux-render-prop": "^0.6.1",
-        "typescript": "^3.1.6"
+        "typescript": "^3.2.1"
     },
     "scripts": {
         "start": "react-scripts start",
@@ -31,7 +32,7 @@
         "not op_mini all"
     ],
     "devDependencies": {
-        "prettier": "^1.15.2",
+        "prettier": "^1.15.3",
         "tslint": "^5.11.0"
     }
 }
