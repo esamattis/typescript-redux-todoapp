@@ -6,9 +6,8 @@ https://medium.com/@esamatti/type-safe-boilerplate-free-redux-906844ec6325
 
 ---
 
-Todo App example made with [Immer
-Reducer](https://github.com/epeli/immer-reducer) and [Redux Render
-Prop](https://github.com/epeli/redux-render-prop)
+Todo App example made with [immer-reducer](https://github.com/epeli/immer-reducer) and [redux-render
+prop](https://github.com/epeli/redux-render-prop)
 
 This is also live in Codesandbox
 
