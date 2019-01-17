@@ -1,4 +1,4 @@
-# Example of Type-safe Boilerplate-free Redux
+# Type-safe Boilerplate-free Redux Example
 
 Read this blog post
 
