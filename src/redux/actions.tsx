@@ -1,4 +1,4 @@
-import {ImmerReducer} from "immer-reducer";
+import {createActionCreators, ImmerReducer} from "immer-reducer";
 
 import {Selectors, State, TodoItem} from "./state";
 
@@ -31,3 +31,5 @@ export class TodoReducer extends ImmerReducer<State> {
         todo.text = text;
     }
 }
+
+export const ActionCreators = createActionCreators(TodoReducer);

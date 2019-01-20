@@ -1,11 +1,11 @@
-import {createActionCreators, createReducerFunction} from "immer-reducer";
-import {bindActionCreators, createStore} from "redux";
+import {createReducerFunction} from "immer-reducer";
+import {applyMiddleware, bindActionCreators, compose, createStore} from "redux";
 import {makeConnector} from "redux-render-prop";
+import createSagaMiddleware from "redux-saga";
 
-import {TodoReducer} from "./actions";
+import {ActionCreators, TodoReducer} from "./actions";
+import {rootSaga} from "./sagas";
 import {initialState, Selectors, State} from "./state";
-
-export const ActionCreators = createActionCreators(TodoReducer);
 
 export const createTodoConnect = makeConnector({
     prepareState: (state: State) => new Selectors(state),
@@ -14,17 +14,29 @@ export const createTodoConnect = makeConnector({
 
 declare global {
     interface Window {
-        __REDUX_DEVTOOLS_EXTENSION__?: Function;
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: Function;
     }
 }
 
+const composeEnhancers =
+    typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+              // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+          })
+        : compose;
+
 export function createTodoStore() {
     const reducer = createReducerFunction(TodoReducer);
+    const sagaMiddleware = createSagaMiddleware();
 
-    return createStore(
+    const store = createStore(
         reducer,
         initialState,
-        window.__REDUX_DEVTOOLS_EXTENSION__ &&
-            window.__REDUX_DEVTOOLS_EXTENSION__(),
+
+        composeEnhancers(applyMiddleware(sagaMiddleware)),
     );
+
+    sagaMiddleware.run(rootSaga);
+
+    return store;
 }
