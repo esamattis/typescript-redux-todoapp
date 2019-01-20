@@ -5,11 +5,11 @@ export interface TodoItem {
 }
 
 export interface State {
-    todos: TodoItem[];
+    todos: {[id: string]: TodoItem};
 }
 
-export const initialState = {
-    todos: [],
+export const initialState: State = {
+    todos: {},
 };
 
 /**
@@ -25,19 +25,17 @@ export class Selectors {
     }
 
     getTodoIDs() {
-        return this.state.todos
-            .filter(todo => !todo.completed)
-            .map(todo => todo.id);
+        return Object.keys(this.state.todos);
     }
 
     getComletedIDs() {
-        return this.state.todos
+        return Object.values(this.state.todos)
             .filter(todo => todo.completed)
             .map(todo => todo.id);
     }
 
     getTodo(id: string) {
-        const maybeTodo = this.state.todos.find(todo => todo.id === id);
+        const maybeTodo = this.state.todos[id];
         if (!maybeTodo) {
             throw new Error("Cannot find todo with id: " + id);
         }

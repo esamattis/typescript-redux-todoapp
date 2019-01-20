@@ -5,15 +5,15 @@ import {Selectors, State, TodoItem} from "./state";
 export class TodoReducer extends ImmerReducer<State> {
     selectors = new Selectors(this.draftState);
 
-    addTodo() {
-        this.draftState.todos.push({
+    addTodo(id: string) {
+        this.draftState.todos[id] = {
             // Generating id like this is a side effect and should not be made
             // in side a reducer. Better place for it would be in a thunk for
             // example.
-            id: String(Date.now()),
+            id,
             text: "",
             completed: false,
-        });
+        };
     }
 
     completeTodo(id: string) {

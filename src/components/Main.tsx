@@ -22,7 +22,13 @@ const Main = () => (
         <AddTodoConnect>
             {(_, actions) => (
                 <div style={{padding: 10}}>
-                    <button onClick={actions.addTodo}>Add todo</button>
+                    <button
+                        onClick={() => {
+                            actions.addTodo(String(Math.random()));
+                        }}
+                    >
+                        Add todo
+                    </button>
                 </div>
             )}
         </AddTodoConnect>
