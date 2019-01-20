@@ -25,7 +25,9 @@ export class Selectors {
     }
 
     getTodoIDs() {
-        return Object.keys(this.state.todos);
+        return Object.values(this.state.todos)
+            .filter(todo => !todo.completed)
+            .map(todo => todo.id);
     }
 
     getComletedIDs() {
