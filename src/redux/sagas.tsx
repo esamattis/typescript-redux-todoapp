@@ -1,7 +1,6 @@
 import {isAction} from "immer-reducer";
 import {Action} from "redux";
-import {delay} from "redux-saga";
-import {put, takeEvery} from "redux-saga/effects";
+import {delay, put, takeEvery} from "redux-saga/effects";
 
 import {ActionCreators} from "./actions";
 
@@ -10,11 +9,14 @@ function* handleNewTodo(action: Action) {
         return;
     }
 
-    const todoId = action.payload[0];
-
     yield delay(1000);
 
-    yield put(ActionCreators.setTodoText(todoId, "initial text from saga"));
+    yield put(
+        ActionCreators.setTodoText({
+            id: action.payload.id,
+            text: "initial text from saga",
+        }),
+    );
 }
 
 function* watchNewTodos() {

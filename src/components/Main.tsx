@@ -24,7 +24,7 @@ const Main = () => (
                 <div style={{padding: 10}}>
                     <button
                         onClick={() => {
-                            actions.addTodo(String(Math.random()));
+                            actions.addTodo({id: String(Math.random())});
                         }}
                     >
                         Add todo

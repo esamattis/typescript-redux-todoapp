@@ -7,14 +7,14 @@ const TodoConnect = createTodoConnect({
 
     mapActions: (actions, props) => ({
         setText(text: string) {
-            actions.setTodoText(props.id, text);
+            actions.setTodoText({id: props.id, text});
         },
 
         complete() {
-            actions.completeTodo(props.id);
+            actions.completeTodo({id: props.id});
         },
         revert() {
-            actions.revertTodo(props.id);
+            actions.revertTodo({id: props.id});
         },
     }),
 });
