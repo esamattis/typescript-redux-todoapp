@@ -1,38 +1,49 @@
-import {isAction, isActionFrom} from "immer-reducer";
+import {isActionFrom} from "immer-reducer";
 import {Action} from "redux";
-import {delay, put, take, takeEvery} from "redux-saga/effects";
+import {debounce, delay, put, select, takeEvery} from "redux-saga/effects";
 
-import {ActionCreators} from "./actions";
+import {TodoActions, TodoLifecycleActions} from "./actions";
+import {Selectors} from "./state";
 
-function* handleNewTodo(action: Action) {
-    if (!isAction(action, ActionCreators.addTodo)) {
-        return;
-    }
-
+/**
+ * Monitor TODO for changes
+ */
+function* monitorTodo(action: ReturnType<typeof TodoActions.addTodo>) {
     const id = action.payload.id;
 
-    while (true) {
-        yield take((a: Action) => {
-            if (isActionFrom(a, ActionCreators)) {
+    yield debounce(
+        2000,
+        (a: Action) => {
+            // Listen to actions that can modify the todo item
+            if (isActionFrom(a, TodoActions)) {
+                // Grab the actions that match this todo item
                 return a.payload.id === id;
             }
 
             return false;
-        });
-
-        yield delay(5000);
-        console.log("saving");
-        yield put(ActionCreators.setSaving({id}));
-        yield delay(5000);
-        console.log("saved");
-        yield put(ActionCreators.setSaved({id}));
-    }
+        },
+        function*() {
+            yield saveTodo(id);
+        },
+    );
 }
 
-function* watchNewTodos() {
-    yield takeEvery(ActionCreators.addTodo.type, handleNewTodo);
+function* saveTodo(id: string) {
+    yield put(TodoLifecycleActions.setSaving({id}));
+
+    const state = yield select();
+    const selectors = new Selectors(state);
+    const todo = selectors.getTodo(id);
+
+    console.log("Start saving and prevent modifications for", id, todo);
+
+    // XXX Simulate the async saving operation
+    yield delay(2000);
+
+    console.log("Saved!", id);
+    yield put(TodoLifecycleActions.setSaved({id}));
 }
 
 export function* rootSaga() {
-    yield watchNewTodos();
+    yield takeEvery(TodoActions.addTodo.type, monitorTodo);
 }

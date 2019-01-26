@@ -17,16 +17,6 @@ export class TodoReducer extends ImmerReducer<State> {
         };
     }
 
-    setSaving(payload: {id: string}) {
-        const todo = this.selectors.getTodo(payload.id);
-        todo.saveState = "saving";
-    }
-
-    setSaved(payload: {id: string}) {
-        const todo = this.selectors.getTodo(payload.id);
-        todo.saveState = "saved";
-    }
-
     completeTodo(payload: {id: string}) {
         const todo = this.selectors.getTodo(payload.id);
 
@@ -61,4 +51,19 @@ export class TodoReducer extends ImmerReducer<State> {
     }
 }
 
-export const ActionCreators = createActionCreators(TodoReducer);
+export class TodoLifecycleReducer extends ImmerReducer<State> {
+    selectors = new Selectors(this.draftState);
+
+    setSaving(payload: {id: string}) {
+        const todo = this.selectors.getTodo(payload.id);
+        todo.saveState = "saving";
+    }
+
+    setSaved(payload: {id: string}) {
+        const todo = this.selectors.getTodo(payload.id);
+        todo.saveState = "saved";
+    }
+}
+
+export const TodoActions = createActionCreators(TodoReducer);
+export const TodoLifecycleActions = createActionCreators(TodoLifecycleReducer);

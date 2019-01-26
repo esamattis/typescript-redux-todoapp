@@ -17,6 +17,8 @@ const TodoListConnect = createTodoConnect({
     }),
 });
 
+let ID = 1;
+
 const Main = () => (
     <div>
         <AddTodoConnect>
@@ -24,7 +26,7 @@ const Main = () => (
                 <div style={{padding: 10}}>
                     <button
                         onClick={() => {
-                            actions.addTodo({id: String(Math.random())});
+                            actions.addTodo({id: String(ID++)});
                         }}
                     >
                         Add todo
