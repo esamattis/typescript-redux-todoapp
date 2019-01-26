@@ -2,6 +2,9 @@ import {createActionCreators, ImmerReducer} from "immer-reducer";
 
 import {Selectors, State, TodoItem} from "./state";
 
+/**
+ * Actions that actually modify the todo content
+ */
 export class TodoReducer extends ImmerReducer<State> {
     selectors = new Selectors(this.draftState);
 
@@ -51,6 +54,9 @@ export class TodoReducer extends ImmerReducer<State> {
     }
 }
 
+/**
+ * Actions for todo lifecycle management
+ */
 export class TodoLifecycleReducer extends ImmerReducer<State> {
     selectors = new Selectors(this.draftState);
 
