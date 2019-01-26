@@ -35,6 +35,7 @@ const TodoItem = (props: {id: string}) => (
                 >
                     {data.completed ? "revert" : "complete"}
                 </button>
+                {data.saveState}
             </div>
         )}
     </TodoConnect>

@@ -1,6 +1,6 @@
-import {isAction} from "immer-reducer";
+import {isAction, isActionFrom} from "immer-reducer";
 import {Action} from "redux";
-import {delay, put, takeEvery} from "redux-saga/effects";
+import {delay, put, take, takeEvery} from "redux-saga/effects";
 
 import {ActionCreators} from "./actions";
 
@@ -9,14 +9,24 @@ function* handleNewTodo(action: Action) {
         return;
     }
 
-    yield delay(1000);
+    const id = action.payload.id;
 
-    yield put(
-        ActionCreators.setTodoText({
-            id: action.payload.id,
-            text: "initial text from saga",
-        }),
-    );
+    while (true) {
+        yield take((a: Action) => {
+            if (isActionFrom(a, ActionCreators)) {
+                return a.payload.id === id;
+            }
+
+            return false;
+        });
+
+        yield delay(5000);
+        console.log("saving");
+        yield put(ActionCreators.setSaving({id}));
+        yield delay(5000);
+        console.log("saved");
+        yield put(ActionCreators.setSaved({id}));
+    }
 }
 
 function* watchNewTodos() {

@@ -2,6 +2,7 @@ export interface TodoItem {
     id: string;
     text: string;
     completed: boolean;
+    saveState: "saved" | "dirty" | "saving";
 }
 
 export interface State {
