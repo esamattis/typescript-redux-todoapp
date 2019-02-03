@@ -1,3 +1,4 @@
+import {useReduxDispatch, useReduxState} from "@epeli/redux-hooks";
 import {createReducerFunction} from "immer-reducer";
 import {
     Action,
@@ -7,17 +8,23 @@ import {
     createStore,
     Reducer,
 } from "redux";
-import {makeConnector} from "redux-render-prop";
 import createSagaMiddleware from "redux-saga";
 
 import {TodoActions, TodoLifecycleReducer, TodoReducer} from "./actions";
 import {rootSaga} from "./sagas";
 import {initialState, Selectors, State} from "./state";
 
-export const createTodoConnect = makeConnector({
-    prepareState: (state: State) => new Selectors(state),
-    prepareActions: dispatch => bindActionCreators(TodoActions, dispatch),
-});
+export function useTodoState<T>(map: (selectors: Selectors) => T) {
+    return useReduxState(state => {
+        return map(new Selectors(state));
+    });
+}
+
+export function useTodoActions() {
+    const dispatch = useReduxDispatch();
+
+    return bindActionCreators(TodoActions, dispatch);
+}
 
 declare global {
     interface Window {

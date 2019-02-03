@@ -1,50 +1,49 @@
 import React from "react";
 
-import {createTodoConnect} from "../redux/store";
+import {useTodoActions, useTodoState} from "../redux/store";
 
-const TodoConnect = createTodoConnect({
-    mapState: (selectors, props: {id: string}) => selectors.getTodo(props.id),
+function useTodoItem(id: string) {
+    return useTodoState(selectors => selectors.getTodo(id));
+}
 
-    mapActions: (actions, props) => ({
+function useTodoItemActions(id: string) {
+    const actions = useTodoActions();
+
+    return {
         setText(text: string) {
-            actions.setTodoText({id: props.id, text});
+            actions.setTodoText({id, text});
         },
 
         complete() {
-            actions.completeTodo({id: props.id});
+            actions.completeTodo({id});
         },
         revert() {
-            actions.revertTodo({id: props.id});
+            actions.revertTodo({id});
         },
-    }),
-});
-
-const TodoItem = (props: {id: string}) => (
-    <TodoConnect id={props.id}>
-        {(data, actions) => (
-            <div>
-                <input
-                    value={data.text}
-                    onChange={e => {
-                        actions.setText(e.target.value);
-                    }}
-                />
-
-                <button
-                    onClick={data.completed ? actions.revert : actions.complete}
-                >
-                    {data.completed ? "revert" : "complete"}
-                </button>
-                {data.saveState}
-            </div>
-        )}
-    </TodoConnect>
-);
-
-//  No typing for this yet
-//reactjs.org/docs/react-api.html#reactmemo
-declare module "react" {
-    function memo<T>(a: T): T;
+    };
 }
+
+const TodoItem = (props: {id: string}) => {
+    const actions = useTodoItemActions(props.id);
+    const todo = useTodoItem(props.id);
+
+    return (
+        <div>
+            <input
+                value={todo.text}
+                onChange={e => {
+                    actions.setText(e.target.value);
+                }}
+            />
+
+            <button
+                onClick={todo.completed ? actions.revert : actions.complete}
+            >
+                {todo.completed ? "revert" : "complete"}
+            </button>
+            {todo.saveState}
+        </div>
+    );
+};
 
 export default React.memo(TodoItem);
