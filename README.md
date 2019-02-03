@@ -9,7 +9,7 @@ https://medium.com/@esamatti/type-safe-boilerplate-free-redux-906844ec6325
 Todo App example made with
 [immer-reducer][], [@epeli/redux-hooks][] and [redux-saga][]
 
-[@epeli/redux-hooks]: https://github.com/epeli/redux-render-prop
+[@epeli/redux-hooks]: https://github.com/epeli/redux-hooks
 [immer-reducer]: https://github.com/epeli/immer-reducer
 [redux-saga]: https://github.com/redux-saga/redux-saga
 
