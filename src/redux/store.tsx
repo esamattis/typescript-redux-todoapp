@@ -1,6 +1,6 @@
 import {
     createUseSelect,
-    useReduxDispatch,
+    useActionCreators,
     useReduxState,
 } from "@epeli/redux-hooks";
 import {createReducerFunction} from "immer-reducer";
@@ -27,9 +27,7 @@ export function useTodoState<T>(map: (selectors: Selectors) => T) {
 export const useTodoSelect = createUseSelect<State>();
 
 export function useTodoActions() {
-    const dispatch = useReduxDispatch();
-
-    return bindActionCreators(TodoActions, dispatch);
+    return useActionCreators(TodoActions);
 }
 
 declare global {
