@@ -4,18 +4,20 @@ import {useTodoActions, useTodoState} from "../redux/store";
 
 import TodoItem from "./TodoItem";
 
+function useCompletedIds() {
+    return useTodoState(selectors => selectors.getComletedIDs());
+}
+
 function useTodoIds() {
-    return useTodoState(selectors => ({
-        todos: selectors.getTodoIDs(),
-        completed: selectors.getComletedIDs(),
-    }));
+    return useTodoState(selectors => selectors.getTodoIDs());
 }
 
 let ID = 1;
 
 const Main = () => {
     const actions = useTodoActions();
-    const data = useTodoIds();
+    const todoIds = useTodoIds();
+    const completedIds = useCompletedIds();
 
     return (
         <div>
@@ -30,12 +32,12 @@ const Main = () => {
             </div>
 
             <h1>TODOs</h1>
-            {data.todos.map(id => (
+            {todoIds.map(id => (
                 <TodoItem key={id} id={id} />
             ))}
 
             <h1>Completed</h1>
-            {data.completed.map(id => (
+            {completedIds.map(id => (
                 <TodoItem key={id} id={id} />
             ))}
         </div>
