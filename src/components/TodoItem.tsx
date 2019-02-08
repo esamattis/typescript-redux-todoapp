@@ -1,9 +1,9 @@
 import React from "react";
 
-import {useTodoActions, useTodoState} from "../redux/store";
+import {useTodoActions, useTodoSelectors} from "../redux/store";
 
 function useTodoItem(id: string) {
-    return useTodoState(selectors => selectors.getTodo(id));
+    return useTodoSelectors(selectors => selectors.getTodo(id));
 }
 
 function useTodoItemActions(id: string) {

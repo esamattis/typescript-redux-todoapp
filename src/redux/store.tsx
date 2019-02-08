@@ -1,7 +1,8 @@
 import {
+    createUseMapState,
+    createUsePassiveMapState,
     createUseSelect,
     useActionCreators,
-    useReduxState,
 } from "@epeli/redux-hooks";
 import {createReducerFunction} from "immer-reducer";
 import {
@@ -18,10 +19,23 @@ import {TodoActions, TodoLifecycleReducer, TodoReducer} from "./actions";
 import {rootSaga} from "./sagas";
 import {initialState, Selectors, State} from "./state";
 
-export function useTodoState<T>(map: (selectors: Selectors) => T) {
-    return useReduxState(state => {
+export const useTodoState = createUseMapState<State>();
+
+export function useTodoSelectors<T>(map: (selectors: Selectors) => T) {
+    return useTodoState(state => {
         return map(new Selectors(state));
     });
+}
+
+export const usePassiveTodoState = createUsePassiveMapState<State>();
+
+export function usePassiveTodoSelectors<T>(
+    map: (selectors: Selectors) => T,
+    deps: any[],
+) {
+    return usePassiveTodoState(state => {
+        return map(new Selectors(state));
+    }, deps);
 }
 
 export const useTodoSelect = createUseSelect<State>();
