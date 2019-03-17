@@ -1,9 +1,10 @@
 import React from "react";
 
-import {useTodoActions, useTodoSelectors} from "../redux/store";
+import {select} from "../redux/state";
+import {TodoHooks, useTodoActions} from "../redux/store";
 
 function useTodoItem(id: string) {
-    return useTodoSelectors(selectors => selectors.getTodo(id));
+    return TodoHooks.useMapState(state => select(state).getTodo(id));
 }
 
 function useTodoItemActions(id: string) {

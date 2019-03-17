@@ -45,3 +45,7 @@ export class Selectors {
         return maybeTodo;
     }
 }
+
+export function select(state: State) {
+    return new Selectors(state);
+}

@@ -1,15 +1,16 @@
 import React from "react";
 
-import {useTodoActions, useTodoSelectors} from "../redux/store";
+import {select} from "../redux/state";
+import {TodoHooks, useTodoActions} from "../redux/store";
 
 import TodoItem from "./TodoItem";
 
 function useCompletedIds() {
-    return useTodoSelectors(selectors => selectors.getComletedIDs());
+    return TodoHooks.useSelect(state => select(state).getComletedIDs());
 }
 
 function useTodoIds() {
-    return useTodoSelectors(selectors => selectors.getTodoIDs());
+    return TodoHooks.useSelect(state => select(state).getTodoIDs());
 }
 
 let ID = 1;

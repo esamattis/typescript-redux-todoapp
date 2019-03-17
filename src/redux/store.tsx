@@ -1,4 +1,5 @@
 import {
+    createHooks,
     createUseMapState,
     createUsePassiveMapState,
     createUseSelect,
@@ -17,28 +18,9 @@ import createSagaMiddleware from "redux-saga";
 
 import {TodoActions, TodoLifecycleReducer, TodoReducer} from "./actions";
 import {rootSaga} from "./sagas";
-import {initialState, Selectors, State} from "./state";
+import {initialState, State} from "./state";
 
-export const useTodoState = createUseMapState<State>();
-
-export function useTodoSelectors<T>(map: (selectors: Selectors) => T) {
-    return useTodoState(state => {
-        return map(new Selectors(state));
-    });
-}
-
-export const usePassiveTodoState = createUsePassiveMapState<State>();
-
-export function usePassiveTodoSelectors<T>(
-    map: (selectors: Selectors) => T,
-    deps: any[],
-) {
-    return usePassiveTodoState(state => {
-        return map(new Selectors(state));
-    }, deps);
-}
-
-export const useTodoSelect = createUseSelect<State>();
+export const TodoHooks = createHooks<State>();
 
 export function useTodoActions() {
     return useActionCreators(TodoActions);
